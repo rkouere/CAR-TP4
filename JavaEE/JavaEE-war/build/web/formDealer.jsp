@@ -36,13 +36,13 @@
             session.setAttribute("date", date);
             
         %>
-        <div>Titre : <%= 
+        <div><strong>Titre : </strong><%= 
                 title
         %></div>
-        <div>Author : <%= 
+        <div><strong>Author :  </strong><%= 
                 author
         %></div>
-        <div>Date : <%= 
+        <div><strong>Date :  </strong><%= 
                date
         %></div>
         <a href="formJSP.jsp" class="button small" >OK</a>
