@@ -11,3 +11,6 @@ Même si nous ne somme pas sensé pouvoir acceder à cette page sans envoyer les
 ##3
 - changement du formDealer.jsp pour rajouter les parametres dans une session
 - utilisation d'un JSP pour afficher le formulaire. Si des elements sont presents dans la session, il les affiches.
+
+#Q3
+## voir https://netbeans.org/kb/docs/javaee/javaee-entapp-ejb.html
