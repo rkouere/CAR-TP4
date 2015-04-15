@@ -36,7 +36,7 @@
       <form action="formDealer.jsp" method="POST">
             <div>Title :  <br />
                 
-                <input type="text" name="title" <% if(getParam) {  %> value="<%= session.getAttribute("title") %>"<%}%> /></div>
+                <input required="" type="text" name="title" <% if(getParam) {  %> value="<%= session.getAttribute("title") %>"<%}%> /></div>
             <div>Author :  <br />
                 <input required="" type="text" name="author" <% if(getParam) {  %> value="<%= session.getAttribute("author") %>"<%}%>/></div>
             <div>Date :  <br /><input required="" type="date" name="date" <% if(getParam) {  %> value="<%= session.getAttribute("date") %>"<%}%>/></div>

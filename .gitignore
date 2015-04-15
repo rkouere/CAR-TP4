@@ -16,3 +16,11 @@
 /JEE/build/
 /JEE/JEE-war/dist/
 /JEE/dist/
+/JavaEE/nbproject/private/
+/JavaEE/build/
+/JavaEE/dist/
+/JavaEE/JavaEE-ejb/dist/
+/JavaEE/JavaEE-ejb/nbproject/private/
+/JavaEE/JavaEE-war/nbproject/private/
+/JavaEE/JavaEE-war/build/
+/JavaEE/JavaEE-war/dist/
