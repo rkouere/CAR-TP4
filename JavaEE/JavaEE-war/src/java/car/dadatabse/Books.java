@@ -8,6 +8,7 @@ package car.dadatabse;
 import car.ejb.*;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,21 +23,24 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Books")
-@NamedQueries(value= {@NamedQuery(name="getAuthor", query="SELECT DISTINCT b.author FROM Books b ORDER BY b.author"), 
-@NamedQuery(name="getTitles", query="SELECT DISTINCT b.title FROM Books b ORDER BY b.title")})
+@NamedQueries(value= {
+    @NamedQuery(name="getAuthor", query="SELECT DISTINCT b.author FROM Books b ORDER BY b.author"), 
+    @NamedQuery(name="getTitles", query="SELECT DISTINCT b.title FROM Books b ORDER BY b.title"),
+    
+})
 public class Books implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     private String title;
     private String author;
     private String date;
-
+    
     public Books() {
     }
     
-   
+ 
     @Override
-    public int hashCode() {
+    public int hashCode() { 
         int hash = 0;
         hash += (title != null ? title.hashCode() : 0);
         return hash;
@@ -60,7 +64,7 @@ public class Books implements Serializable {
         return "dadatabse.book.NewEntity[ id=" + title + " ]";
     }
 
-    public Books(String title, String author, String date) {
+    public Books(String author, String title, String date) {
         this.title = title;
         this.author = author;
         this.date = date;

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import car.dadatabse.Books;
 import car.ejb.BooksFacadeLocalItf;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class GetListAuthors extends HttpServlet {
   
-    @EJB
+   @EJB
    private BooksFacadeLocalItf bf;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,14 +40,16 @@ public class GetListAuthors extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet GetListAuthor</title>");            
+            out.println("<title>Servlet GetListAuthor</title>");    
             out.println("</head>");
             out.println("<body>");
+            out.println("<div class='wrapper'>"); 
             List<String> list = bf.getAuthors();
             
-            out.println("<h1>Liste des auteurs dans la base</h1>");
             for(String str:list)
-                out.println(str + "<br/>");
+                out.println(str + "<br />");
+            
+            out.println("</div>");
             out.println("</body>");
             out.println("</html>");
         }

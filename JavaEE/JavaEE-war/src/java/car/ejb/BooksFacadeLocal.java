@@ -66,6 +66,26 @@ public class BooksFacadeLocal implements BooksFacadeLocalItf {
         Books book1 = new Books(author, title, date);
         em.persist(book1);
     }
+   /**
+    * @inheritDoc
+    *
+    */
+    @Override
+    public List<Books> findAllTitles() {
+        Query q = em.createQuery("SELECT OBJECT(b) FROM Books b");
+        //q.setParameter("ti", title);
+        return q.getResultList();
+    }
+   /**
+    * @inheritDoc
+    *
+    */
+    @Override
+    public List<Books> findBooksByAuthor(String author) {
+        Query q = em.createQuery("SELECT OBJECT(b) FROM Books b WHERE b.author = :au");
+        q.setParameter("au", author);
+        return q.getResultList();
+    }
 
 
 }

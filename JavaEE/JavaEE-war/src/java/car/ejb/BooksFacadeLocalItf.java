@@ -6,6 +6,7 @@
 
 package car.ejb;
 
+import car.dadatabse.Books;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -34,4 +35,21 @@ public interface BooksFacadeLocalItf {
      * 
      */
     public void addTitle(String author, String title, String date);
+    
+    /**
+     * Return de titles containing the string in its title
+     * @param title
+     * @return 
+     */
+    public List<Books> findAllTitles();
+    
+    /**
+     * Return de titles with a certain author
+     * @param title
+     * @return 
+     */
+    public List<Books> findBooksByAuthor(String title);
+    
+
+    
 }

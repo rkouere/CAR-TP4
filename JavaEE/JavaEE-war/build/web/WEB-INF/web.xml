@@ -20,6 +20,10 @@
         <servlet-name>GetListBooks</servlet-name>
         <servlet-class>GetListBooks</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchBook</servlet-name>
+        <servlet-class>SearchBook</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InitDatabase</servlet-name>
         <url-pattern>/InitDatabase</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>GetListBooks</servlet-name>
         <url-pattern>/GetListBooks</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchBook</servlet-name>
+        <url-pattern>/SearchBook</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
