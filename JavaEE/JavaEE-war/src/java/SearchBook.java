@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SearchBook extends HttpServlet {
     @EJB
     private BooksFacadeLocalItf bf;
-    private List<String> titles = new ArrayList<>();
+    private List<Books> titles = new ArrayList<>();
     
     private String form = "<form action=\"SearchBook\" method=\"POST\">\n" +
 "            <div>Title :  <br />\n" +
@@ -58,9 +58,12 @@ public class SearchBook extends HttpServlet {
             out.println(Tools.header);
             out.println("<div>What are you looking for ?</div>");
             out.println(this.form);
-            
-            for(String title:this.titles) 
-                out.println("<div>" + title + "</div>");
+            if(this.titles.size() > 0) {
+                out.println(Tools.tableHeader);
+                for(Books title:this.titles) 
+                    out.println("<tr><td>" + title.getAuthor()+ "</td><td>" + title.getTitle()+ "</td><td>" + title.getDate()+ "</td></tr>");
+                out.println(Tools.tableFooter);
+            }
             out.println("<div><a href='GetListBooks'>Back to book listing</a></div>");
            out.println(Tools.footer);
         }
@@ -94,7 +97,7 @@ public class SearchBook extends HttpServlet {
             throws ServletException, IOException {
         List<Books> list = bf.findBooksByAuthor(request.getParameter("author"));
         for(Books book:list)
-            this.titles.add(book.getTitle());
+            this.titles.add(book);
         
         processRequest(request, response);
     }

@@ -24,5 +24,17 @@ public class Tools {
             "</div>"
             + "</body>"
             + "</html>";
+    
+    public static final String tableHeader = "<table width='500px'> "
+                        + "<thead>"
+                            + "<tr>" 
+                                + "<td>Author</td>"
+                                + "<td>Title</td>"
+                                + "<td>Date</td>"
+                            + "</tr>"
+                        + "</thead>"
+                        + "<tbody>";
+    public static final String tableFooter = "</tbody>" + "</table>";
+    
 }
  
