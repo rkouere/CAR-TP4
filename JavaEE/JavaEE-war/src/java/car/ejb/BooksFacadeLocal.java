@@ -14,7 +14,7 @@ import javax.ejb.Local;
  * @author echallier
  */
 @Local
-public interface booksFacadeLocal {
+public interface BooksFacadeLocal {
     /**
      * Enregistre des livres dans la base de donnée
      */

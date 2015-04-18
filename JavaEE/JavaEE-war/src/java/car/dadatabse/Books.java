@@ -13,19 +13,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table; 
 
 /**
  *
  * @author echallier
  */
 @Entity
-@NamedQuery(name="getAuthor", query="select OBJECT(b) from Books b")
+@Table(name="Books")
+@NamedQuery(name="getAuthor", query="SELECT DISTINCT b.author FROM Books b ORDER BY b.author")
 public class Books implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     private String title;
     private String author;
     private String date;
+
+    public Books() {
+    }
     
    
     @Override
@@ -51,6 +56,12 @@ public class Books implements Serializable {
     @Override
     public String toString() {
         return "dadatabse.book.NewEntity[ id=" + title + " ]";
+    }
+
+    public Books(String title, String author, String date) {
+        this.title = title;
+        this.author = author;
+        this.date = date;
     }
     
     /**
