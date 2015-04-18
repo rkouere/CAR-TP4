@@ -25,7 +25,7 @@
             if(title.isEmpty() || author.isEmpty() || date.isEmpty()) {
                 session.setAttribute("error", "true");
                 %>
-                <jsp:forward page="formJSP.jsp"></jsp:forward>
+                <jsp:forward page="addBook.jsp"></jsp:forward>
                 <%
                 
                 
@@ -45,7 +45,7 @@
         <div><strong>Date :  </strong><%= 
                date
         %></div>
-        <a href="formJSP.jsp" class="button small" >OK</a>
+        <a href="GetListBooks" class="button small" >OK</a>
         <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
     <script>

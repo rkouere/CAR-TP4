@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
+        <servlet-name>InitDatabase</servlet-name>
+        <servlet-class>InitDatabase</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetListAuthor</servlet-name>
+        <servlet-class>GetListAuthors</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookManager</servlet-name>
+        <servlet-class>BookManager</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>formServlet</servlet-name>
         <servlet-class>FormServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>InitDatabase</servlet-name>
-        <servlet-class>InitDatabase</servlet-class>
+        <servlet-name>GetListBooks</servlet-name>
+        <servlet-class>GetListBooks</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>InitDatabase</servlet-name>
+        <url-pattern>/InitDatabase</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetListAuthor</servlet-name>
+        <url-pattern>/GetListAuthor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookManager</servlet-name>
+        <url-pattern>/BookManager</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>formServlet</servlet-name>
         <url-pattern>/formServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>InitDatabase</servlet-name>
-        <url-pattern>/InitDatabase</url-pattern>
+        <servlet-name>GetListBooks</servlet-name>
+        <url-pattern>/GetListBooks</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

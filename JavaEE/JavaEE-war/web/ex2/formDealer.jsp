@@ -45,7 +45,7 @@
         <div><strong>Date :  </strong><%= 
                date
         %></div>
-        <a href="formJSP.jsp" class="button small" >OK</a>
+        <a href="formJSPEx2.jsp" class="button small" >OK</a>
         <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
     <script>

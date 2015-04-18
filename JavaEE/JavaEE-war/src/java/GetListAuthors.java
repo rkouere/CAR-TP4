@@ -4,15 +4,11 @@
  * and open the template in the editor.
  */
 
-import car.ejb.BooksFacadeLocal;
 import car.ejb.BooksFacadeLocalItf;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rkouere
  */
-public class InitDatabase extends HttpServlet {
-
-   @EJB
+public class GetListAuthors extends HttpServlet {
+  
+    @EJB
    private BooksFacadeLocalItf bf;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,18 +34,19 @@ public class InitDatabase extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet InitDatabase</title>");            
+            out.println("<title>Servlet GetListAuthor</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet InitDatabase at " + request.getContextPath() + "</h1>");
-            bf.init();
-            out.println("<h1>Initialisation de la base de données ok.</h1>");
+            List<String> list = bf.getAuthors();
+            
+            out.println("<h1>Liste des auteurs dans la base</h1>");
+            for(String str:list)
+                out.println(str + "<br/>");
             out.println("</body>");
             out.println("</html>");
         }

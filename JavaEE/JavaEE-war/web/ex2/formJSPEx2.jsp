@@ -7,7 +7,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="general/header.html"%>
+<%@include file="../general/header.html"%>
     <%--
         We check if this is a new session.
         If it is, we make sure that we print the parameteres in the form.
@@ -43,4 +43,4 @@
             <div><input type="submit" value="Submit" /></div>
         </form>
 
-<%@include file="general/footer.html"%>
+<%@include file="../general/footer.html"%>

@@ -4,15 +4,11 @@
  * and open the template in the editor.
  */
 
-import car.ejb.BooksFacadeLocal;
 import car.ejb.BooksFacadeLocalItf;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +18,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rkouere
  */
-public class InitDatabase extends HttpServlet {
-
-   @EJB
+public class GetListBooks extends HttpServlet {
+    @EJB
    private BooksFacadeLocalItf bf;
+    
+    private String title     =   "";
+    private String author   =   "";
+    private String date     =   "";
+    boolean init = false;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,18 +38,27 @@ public class InitDatabase extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        if(!init) {
+            bf.init();
+            this.init = true;
+        }
+            
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet InitDatabase</title>");            
+            out.println("<title>Servlet GetListBooks</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet InitDatabase at " + request.getContextPath() + "</h1>");
-            bf.init();
-            out.println("<h1>Initialisation de la base de données ok.</h1>");
+            out.println(this.author);
+            out.println("==================");
+            List<String> list = bf.getTitles();
+            
+            out.println("<h1>Liste des titres dans la base</h1>");
+            for(String str:list)
+                out.println(str + "<br/>");
+            out.println("<div><a href='addBook.jsp'>Rajouter un titre</a></div>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,16 +80,21 @@ public class InitDatabase extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Add a title to the database and then re-display the list of titles
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        this.title  = request.getParameter("title");
+        this.author = request.getParameter("author");
+        this.date   = request.getParameter("date");
+        bf.addTitle("salut", "salut", "salut");
         processRequest(request, response);
     }
 

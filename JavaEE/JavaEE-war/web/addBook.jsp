@@ -9,21 +9,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="general/header.html"%>
     <%--
-        We check if this is a new session.
-        If it is, we make sure that we print the parameteres in the form.
+        We check that there has not been any kind of weird post sent
+        If it is the case we display a message
     --%>
-    <%
-        boolean getParam = false;
-        if(!session.isNew()) {
-            getParam = true;
-            
-        }
-        else
-            getParam = false;
-            
-    %>
-     <h1>TP Java EE</h1>
-     <% 
+    <% 
         if(session.getAttribute("error") == "true") {
             %>
             <div data-alert class="alert-box">
@@ -33,13 +22,16 @@
             <%
         }
      %>
-      <form action="formDealer.jsp" method="POST">
+     
+     <h1>TP Java EE</h1>
+
+      <form action="GetListBooks" method="POST">
             <div>Title :  <br />
                 
-                <input required="" type="text" name="title" <% if(getParam) {  %> value="<%= session.getAttribute("title") %>"<%}%> /></div>
+                <input required="" type="text" name="title" /></div>
             <div>Author :  <br />
-                <input required="" type="text" name="author" <% if(getParam) {  %> value="<%= session.getAttribute("author") %>"<%}%>/></div>
-            <div>Date :  <br /><input required="" type="date" name="date" <% if(getParam) {  %> value="<%= session.getAttribute("date") %>"<%}%>/></div>
+                <input required="" type="text" name="author"/></div>
+            <div>Date :  <br /><input required="" type="date" name="date"/></div>
             <div><input type="submit" value="Submit" /></div>
         </form>
 
