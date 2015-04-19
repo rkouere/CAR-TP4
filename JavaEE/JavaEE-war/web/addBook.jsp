@@ -23,7 +23,7 @@
         }
      %>
      
-     <h1>TP Java EE</h1>
+     <h2>Ex2</h2>
 
       <form action="GetListBooks" method="POST">
             <div>Title :  <br />

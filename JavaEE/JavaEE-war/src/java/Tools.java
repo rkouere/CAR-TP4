@@ -18,14 +18,22 @@ public class Tools {
             + "<link rel=\"stylesheet\" href=\"css/general.css\" />"
             + "</head>"
             + "<body>"
-            + "<div class='wrapper'>";
+            + "<div class='wrapper'>"
+            + "<header>"
+                + "<h1><a href='http://localhost:8080/PAC-TP4/'>CAR TP4</a></h1>"
+                + "<ul>"
+                    + "<li><a href='http://localhost:8080/PAC-TP4/formJSPEx2.jsp'>Ex2 : JSP</a></li>"
+                    + "<li><a href='http://localhost:8080/PAC-TP4/GetListBooks'>Ex3</a></li>"
+                + "</ul>"
+            + "</header>";
     
     public static final String footer = 
             "</div>"
             + "</body>"
             + "</html>";
     
-    public static final String tableHeader = "<table width='500px'> "
+    public static final String tableHeader = 
+                        "<table width='100%'> "
                         + "<thead>"
                             + "<tr>" 
                                 + "<td>Author</td>"

@@ -24,6 +24,10 @@
         <servlet-name>SearchBook</servlet-name>
         <servlet-class>SearchBook</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>Login</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InitDatabase</servlet-name>
         <url-pattern>/InitDatabase</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>SearchBook</servlet-name>
         <url-pattern>/SearchBook</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

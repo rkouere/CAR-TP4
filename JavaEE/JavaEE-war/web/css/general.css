@@ -6,3 +6,44 @@ body {
     max-width: 1024px;
     margin: 0px auto;
 }
+
+header h1 {
+    font-size: 2em;
+    color: black;
+    font-weight: bold;
+}
+
+header ul {
+    margin-left: 0px;
+    border-top: 1px solid gray; 
+    border-bottom: 1px solid gray;
+    border-left: 1px solid gray; 
+    border-right: 1px solid gray; 
+
+}
+header ul li {
+    display: inline;
+    padding: 1em;
+
+    border-right: 1px solid gray; 
+}
+
+table {
+    margin-bottom: 2em;
+}
+thead {
+    font-weight: bold;
+    background-color: #e6e6e6;
+}
+
+tr td {
+    padding: 5px;
+}
+tbody tr:nth-child(even) {
+    background-color: #dcdcdc;
+}
+
+tbody tr:hover {
+    background-color: #c8c8c8;
+    cursor: pointer;
+}

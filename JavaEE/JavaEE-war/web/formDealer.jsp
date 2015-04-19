@@ -3,17 +3,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foundation | Welcome</title>
-    <link rel="stylesheet" href="css/foundation.css" />
-    <link rel="stylesheet" href="css/general.css" />
-    <script src="js/vendor/modernizr.js"></script>
-  </head>
-    <body>
+<%@include file="general/header.html"%>
+
         <h1>Récapitulatif</h1>
         <%-- 
             We get the parameters from the POST method and we update the session informations

@@ -24,12 +24,12 @@ public class Purchases implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
  
-    private long value;
     /**
      * The books associated with the purchase
      */
     private Collection<Books> books;
     
+    private String user;
     
     public Collection<Books> getBooks() {
         return this.books;

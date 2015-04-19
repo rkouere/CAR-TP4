@@ -7,22 +7,20 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="../general/header.html"%>
+<%@include file="general/header.html"%>
     <%--
         We check if this is a new session.
         If it is, we make sure that we print the parameteres in the form.
     --%>
     <%
         boolean getParam = false;
-        if(!session.isNew()) {
-            getParam = true;
-            
+        if(session.getAttribute("title") != null) {
+            getParam = true; 
         }
-        else
-            getParam = false;
+            
             
     %>
-     <h1>TP Java EE</h1>
+     <h2>Ajouter un livre</h2>
      <% 
         if(session.getAttribute("error") == "true") {
             %>
@@ -43,4 +41,4 @@
             <div><input type="submit" value="Submit" /></div>
         </form>
 
-<%@include file="../general/footer.html"%>
+<%@include file="general/footer.html"%>

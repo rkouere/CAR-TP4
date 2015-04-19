@@ -24,6 +24,9 @@ public class BooksFacadeLocal implements BooksFacadeLocalItf {
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * Constructor
+     */
     public BooksFacadeLocal() {
     }
     
@@ -35,11 +38,14 @@ public class BooksFacadeLocal implements BooksFacadeLocalItf {
     public void init() {
         Books book1 = new Books("Orwell", "1984", "08/06/1949");
         Books book2 = new Books("Kipling", "Kim", "01/10/1901");
-        Books book3 = new Books("Harper Lee", "Ne tirez pas sur l'oiseau moqueur", "11 juillet 1960");
+        Books book3 = new Books("Harper Lee", "Ne tirez pas sur l'oiseau moqueur", "11/071960");
+        Books book4 = new Books("Gabriel García Márquez", "Cent ans de solitude", "01/02/1967");
         
         em.persist(book1);
         em.persist(book2);
         em.persist(book3);
+        em.persist(book4);
+
     }
    /**
     * @inheritDoc
@@ -62,9 +68,15 @@ public class BooksFacadeLocal implements BooksFacadeLocalItf {
     *
     */
     @Override
-    public void addTitle(String author, String title, String date) {
+    public boolean addTitle(String author, String title, String date) {
         Books book1 = new Books(author, title, date);
-        em.persist(book1);
+        try {
+            em.persist(book1);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
    /**
     * @inheritDoc

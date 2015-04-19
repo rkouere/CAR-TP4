@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-import car.dadatabse.Books;
+import car.dadatabse.User;
 import car.ejb.BooksFacadeLocalItf;
+import car.ejb.UserFacadeLocalItf;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,16 +20,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rkouere
  */
-public class GetListBooks extends HttpServlet {
-    @EJB
-   private BooksFacadeLocalItf bf;
-    
-    private String title     =   "";
-    private String author   =   "";
-    private String date     =   "";
-    boolean init = false;
+public class Login extends HttpServlet {
+   @EJB
+   private UserFacadeLocalItf user;
     /**
-     * Displays the list of books currently in the database and offers the user to add a book
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -39,35 +35,20 @@ public class GetListBooks extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ServletContext ctx = getServletContext();
-        
-        // si on a jamais encore initialise la base de donnee, on le fait
-        if(ctx.getAttribute("init") != "true") {
-            bf.init();
-            ctx.setAttribute("init", "true");
-        }
-            
+        user.init();
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println(Tools.header);
-
-            
-            out.println("<h1>Liste des titres dans la base</h1>");
-            out.println(Tools.tableHeader);
-     
-            List<Books> list = bf.findAllTitles();
-            
-            for(Books book:list)
-//                out.println("<tr><td>" + book.getTitle()+ "</td><td>" + book.getAuthor()+ "</td><td>" + book.getDate()+ "</td></tr>");
-                out.println("<tr><td>" + book.getAuthor()+ "</td><td>" + book.getTitle()+ "</td><td>" + book.getDate()+ "</td></tr>");
- 
-            out.println(Tools.tableFooter);
-
-            out.println("<div><a href='addBook.jsp'>Rajouter un titre à la base de données.</a></div>");
-            out.println("<div><a href='addBookBasket.jsp'>Rajouter un titre au panier.</a></div>");
-            out.println("<div><a href='basket.jsp'>Voir panier et commander.</a></div>");
-            out.println("<div><a href='SearchBook'>Search a book.</a></div>");
-            out.println(Tools.footer);
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Login</title>");            
+            out.println("</head>");
+            out.println("<body>");
+//            List<User> list = user.checkUserExists("user");
+//            out.println(list.size());
+            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -87,21 +68,16 @@ public class GetListBooks extends HttpServlet {
     }
 
     /**
-     * Add a title to the database and then re-display the list of titles
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.title  = request.getParameter("title");
-        this.author = request.getParameter("author"); 
-        this.date   = request.getParameter("date");
-        bf.addTitle(this.title, this.author, this.date);
         processRequest(request, response);
     }
 

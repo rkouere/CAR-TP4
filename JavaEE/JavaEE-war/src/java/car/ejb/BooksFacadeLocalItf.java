@@ -34,7 +34,7 @@ public interface BooksFacadeLocalItf {
      * Rajoute un livre a la base
      * 
      */
-    public void addTitle(String author, String title, String date);
+    public boolean addTitle(String author, String title, String date);
     
     /**
      * Return de titles containing the string in its title
