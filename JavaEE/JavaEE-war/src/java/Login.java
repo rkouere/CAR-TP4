@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import car.dadatabse.User;
+import car.dadatabse.Client;
 import car.ejb.BooksFacadeLocalItf;
 import car.ejb.UserFacadeLocalItf;
 import java.io.IOException;
@@ -12,12 +12,14 @@ import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- *
+ * Was supposed to let a user login or crate a new user
  * @author rkouere
  */
 public class Login extends HttpServlet {
@@ -34,21 +36,59 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+ 
         response.setContentType("text/html;charset=UTF-8");
         user.init();
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Login</title>");            
-            out.println("</head>");
-            out.println("<body>");
-//            List<User> list = user.checkUserExists("user");
-//            out.println(list.size());
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            out.println(Tools.header);
+            HttpSession session = request.getSession(true);
+            
+            while(session.getAttributeNames().hasMoreElements())
+                out.println(session.getAttributeNames().nextElement());
+//            
+//            Cookie[] cookies = request.getCookies();
+//
+//            if(cookies !=null){
+//                for(Cookie cookie : cookies){
+//                   
+//                    if(cookie.getName().equals("user")) {
+//                        if(cookie.getValue().equals("fail")) {
+//                            out.println("You are unknown to our database");
+//                        }
+//                        else if(cookie.getValue().equals("failAlreadyInDatabase")) {
+//                            out.println("This user is already in the database. Please, either login with this username or choose another username");
+//                        }
+//                        else
+//                            out.println("Welcome " + cookie.getValue() + " !");
+//                    }
+//                }
+//            }
+            
+            
+            
+            out.println(
+                    "<div id='login'>"
+                            + "<h1>Login</h1>"
+                            + "<div id='newLogin'>"
+                                + "<h2>New user</h2>"
+                                + "<form action='Login' method='POST'>" +
+                                        "<div><input required='' type='text' name='pseudoNew' /></div>" +
+                                        "<div><input type='submit' value='Submit' /></div>" +
+                                    "</form>"
+                            + "</div>"
+                        + "<div id='checkLogin'>"
+                                + "<h2>Returning user</h2>"
+                                + "<form action='Login' method='POST'>" +
+                                        "<div><input required='' type='text' name='pseudoCheck' /></div>" +
+                                        "<div><input type='submit' value='Submit' /></div>" +
+                                    "</form>"
+                        + "</div>"
+                    + "</div>");
+            
+
+            out.println(Tools.footer);
+
         }
     }
 
@@ -68,7 +108,9 @@ public class Login extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Checks whether a user is trying toi login or is trying to be a new user.
+     * If the user exists, we set a session 
+     * If the user wants to be a new customer, we add him in the database and we create a session
      *
      * @param request servlet request
      * @param response servlet response
@@ -78,6 +120,39 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // if the user is already registered
+        if(request.getParameter("pseudoCheck") != null) { 
+            // si l'utilisateur existe
+            if(user.checkUserExists(request.getParameter("pseudoCheck")).size() == 1) {
+                HttpSession session = request.getSession(true);
+                session.setAttribute( "USER", user.checkUserExists(request.getParameter("pseudoCheck")) );
+                response.sendRedirect(response.encodeRedirectURL("Login"));
+            }
+            else {
+                Cookie userName = new Cookie("user", "fail");
+                userName.setMaxAge(30*60);
+                response.addCookie(userName);
+                response.sendRedirect("Login");
+            }
+        }
+        // if the user is already registered
+        else if(request.getParameter("pseudoNew") != null) {
+            //si l'utilisateur existe deja
+            if(user.checkUserExists(request.getParameter("pseudoNew")).size() != 0) {
+                Cookie userName = new Cookie("user", "failAlreadyInDatabase");
+                userName.setMaxAge(30*60);
+                response.addCookie(userName);
+                response.sendRedirect("Login");
+            }
+            else {
+                user.addUser(request.getParameter("pseudoNew"));
+
+                Cookie userName = new Cookie("user", request.getParameter("pseudoNew"));
+                userName.setMaxAge(30*60);
+                response.addCookie(userName);
+                response.sendRedirect("GetListBooks");
+            }
+        }
         processRequest(request, response);
     }
 

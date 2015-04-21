@@ -12,22 +12,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- *
+ * Was supposed to be used to store the clients
  * @author rkouere
  */
 @Entity
-public class User implements Serializable {
+public class Client implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String username;
+    private String pseudo;
 
-    public User(String username) {
-        this.username = username;
+    public Client(String pseudo) {
+        this.pseudo = pseudo;
     }
 
-    public User() {
+    public Client() {
     }
     
     
@@ -49,10 +49,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Client)) {
             return false;
         }
-        User other = (User) object;
+        Client other = (Client) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -61,7 +61,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "car.dadatabse.User[ id=" + id + " ]";
+        return "car.dadatabse.Users[ id=" + id + " ]";
     }
     
 }

@@ -5,7 +5,7 @@
  */
 package car.ejb;
 
-import car.dadatabse.User;
+import car.dadatabse.Client;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- *
+ * Was supposed to be used to manage users
  * @author rkouere
  */
 @Stateless
@@ -30,9 +30,9 @@ public class UserFacade implements UserFacadeLocalItf {
     */    
     @Override
     public void init() {
-        User user1 = new User("user1");
-        User user2 = new User("user2");
-        em.persist(user1);
+        Client user1 = new Client("user1");
+        Client user2 = new Client("user2");
+        em.persist(user1); 
         em.persist(user2);
     }
 
@@ -41,8 +41,9 @@ public class UserFacade implements UserFacadeLocalItf {
     *
     */    
     @Override
-    public boolean addUser(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void addUser(String name) {
+        Client user1 = new Client(name);
+        em.persist(user1); 
     }
 
     /**
@@ -55,8 +56,9 @@ public class UserFacade implements UserFacadeLocalItf {
     }
 
     @Override
-    public List<User> checkUserExists(String name) {
-        Query q = em.createQuery("SELECT OBJECT(u) FROM User u");
+    public List<Client> checkUserExists(String name) {
+        Query q = em.createQuery("SELECT OBJECT(u) FROM Client u WHERE u.pseudo = :au");
+        q.setParameter("au", name);
         return q.getResultList();
     }
     

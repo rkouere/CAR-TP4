@@ -12,22 +12,24 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Displays a list of the titles present in the database
  * @author rkouere
  */
 public class GetListBooks extends HttpServlet {
     @EJB
    private BooksFacadeLocalItf bf;
     
-    private String title     =   "";
+    private String title    =   "";
     private String author   =   "";
     private String date     =   "";
-    boolean init = false;
+    boolean init            =   false;
+    boolean logedIn         =   false;
     /**
      * Displays the list of books currently in the database and offers the user to add a book
      *
@@ -38,6 +40,23 @@ public class GetListBooks extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+
+            if(cookies !=null){
+                for(Cookie cookie : cookies){
+                   
+                    if(cookie.getName().equals("user")) {
+                        if(cookie.getValue().equals("fail")) {
+                            this.logedIn = false;
+                        }
+                        else if(cookie.getValue().equals("failAlreadyInDatabase")) {
+                            this.logedIn = false;
+                        }
+                        else
+                            this.logedIn = true;
+                    }
+                }
+            }
         response.setContentType("text/html;charset=UTF-8");
         ServletContext ctx = getServletContext();
         
@@ -58,14 +77,13 @@ public class GetListBooks extends HttpServlet {
             List<Books> list = bf.findAllTitles();
             
             for(Books book:list)
-//                out.println("<tr><td>" + book.getTitle()+ "</td><td>" + book.getAuthor()+ "</td><td>" + book.getDate()+ "</td></tr>");
                 out.println("<tr><td>" + book.getAuthor()+ "</td><td>" + book.getTitle()+ "</td><td>" + book.getDate()+ "</td></tr>");
  
             out.println(Tools.tableFooter);
-
+            
             out.println("<div><a href='addBook.jsp'>Rajouter un titre à la base de données.</a></div>");
-            out.println("<div><a href='addBookBasket.jsp'>Rajouter un titre au panier.</a></div>");
-            out.println("<div><a href='basket.jsp'>Voir panier et commander.</a></div>");
+            
+
             out.println("<div><a href='SearchBook'>Search a book.</a></div>");
             out.println(Tools.footer);
         }

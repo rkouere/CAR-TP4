@@ -49,7 +49,9 @@ public interface BooksFacadeLocalItf {
      * @return 
      */
     public List<Books> findBooksByAuthor(String title);
-    
-
+    /**
+     * Returns a list of books with this title
+     */
+    public List<Books> findBooksByTitle(String title);
     
 }

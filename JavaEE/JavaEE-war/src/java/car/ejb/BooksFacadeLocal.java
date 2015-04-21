@@ -13,7 +13,11 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- *
+ * EJB enabling three things:
+ * - init some dumyy information regarding available books (init)
+ * - add a title to the database
+ * - find all the titles
+ * - find books by author
  * @author echallier
  */
 @Stateless
@@ -96,6 +100,17 @@ public class BooksFacadeLocal implements BooksFacadeLocalItf {
     public List<Books> findBooksByAuthor(String author) {
         Query q = em.createQuery("SELECT OBJECT(b) FROM Books b WHERE b.author = :au");
         q.setParameter("au", author);
+        return q.getResultList();
+    }
+
+    /**
+    * @inheritDoc
+    *
+    */
+    @Override
+    public List<Books> findBooksByTitle(String title) {
+        Query q = em.createQuery("SELECT OBJECT(b) FROM Books b WHERE b.title = :au");
+        q.setParameter("au", title);
         return q.getResultList();
     }
 

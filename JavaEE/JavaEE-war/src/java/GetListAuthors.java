@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Displays a list of the authors present in the database
  * @author rkouere
  */
 public class GetListAuthors extends HttpServlet {
@@ -24,8 +24,8 @@ public class GetListAuthors extends HttpServlet {
    @EJB
    private BooksFacadeLocalItf bf;
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Prints the list of the authors in a table
+     * 
      *
      * @param request servlet request
      * @param response servlet response

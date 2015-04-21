@@ -6,7 +6,7 @@
 package car.ejb;
 
 import car.dadatabse.Books;
-import car.dadatabse.User;
+import car.dadatabse.Client;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -24,7 +24,7 @@ public interface UserFacadeLocalItf {
      * Adds a user to the database
      * @param The name of the user  
      */
-    public boolean addUser(String name);
+    public void addUser(String name);
     
     /**
      * Remove a user to the database
@@ -37,6 +37,6 @@ public interface UserFacadeLocalItf {
      * @param The username
      * @return true if the user exists
      */
-    public List<User> checkUserExists(String name);
+    public List<Client> checkUserExists(String name);
     
 }
