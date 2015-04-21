@@ -23,13 +23,18 @@ public class MakePurchase implements MakePurchaseLocal {
     private EntityManager em;
     Collection<Books> liste;
     Purchase purchase = null;
-    
+    /**
+     * Constructor
+     */
     public MakePurchase() {
         this.purchase = new Purchase();
     }
     
     
-    
+    /**
+    * @inheritDoc
+    *
+    */
     @Override
     public void makePurchase(List<Books> list) {
         this.purchase.setShoping(liste);

@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Tue Apr 21 18:30:01 CEST 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-014c-dcd0-9c8c-000025cc5648 
+on database directory /tmp/gfembed2819068990216224397tmp/lib/databases/ejbtimer with class loader sun.misc.Launcher$AppClassLoader@3351e824 
+Loaded from file:/home/rkouere/glassfish-4.1/javadb/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_75-b13
+user.dir=/home/rkouere/fac/S2/car/CAR-TP4/JavaEE/JavaEE-war
+os.name=Linux
+os.arch=amd64
+os.version=3.13.0-37-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

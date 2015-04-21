@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * Was supposed to be used to store the clients
+ * The java representation of the Clients table
  * @author rkouere
  */
 @Entity
@@ -23,26 +23,44 @@ public class Client implements Serializable {
     private Long id;
     private String pseudo;
 
+    /**
+     * 
+     * @return The pseudo of the client 
+     */
     public String getPseudo() {
         return pseudo;
     }
-
+    /**
+     * Sets the seudo of the client
+     * @param pseudo 
+     */
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
-
+    /**
+     * Constructor
+     * @param The client's pseudo 
+     */
     public Client(String pseudo) {
         this.pseudo = pseudo;
     }
-
+    /**
+     * Constructor
+     */
     public Client() {
     }
     
-    
+    /**
+     * 
+     * @return The client's ID
+     */
     public Long getId() {
         return id;
     }
-
+    /**
+     * Set's the user's id
+     * @param id 
+     */
     public void setId(Long id) {
         this.id = id;
     }

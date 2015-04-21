@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Was supposed to let a user login or crate a new user
+ * WManages the user loggin
  * @author rkouere
  */
 public class Login extends HttpServlet {
@@ -97,7 +97,8 @@ public class Login extends HttpServlet {
     }
 
     /**
-     * Checks whether a user is trying toi login or is trying to be a new user.
+     * Handles the loggin manager
+     * - Checks whether a user is trying toi login or is trying to be a new user.
      * If the user exists, we set a session 
      * If the user wants to be a new customer, we add him in the database and we create a session
      *

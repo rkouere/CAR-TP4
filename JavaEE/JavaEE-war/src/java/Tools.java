@@ -12,15 +12,22 @@ import javax.servlet.http.HttpSession;
  */
 
 /**
- *
+ * Singleton with some funcitonalities / globals
  * @author rkouere
  */
 public class Tools {
+    /**
+     * The text to displayto let a user logout
+     */
     public static final String logout = "<form action='Login' method='POST'>" +
                         "<div><input type='hidden' required='' type='text' name='logout' /></div>" +
                         "<div><input type='submit' value='Logout' class='button tiny' /></div>" +
                     "</form>";
-    
+    /**
+     * The header of the servlets. Include :
+     * - the menu
+     * - the wrapper
+     */
     public static final String header = 
             "<!DOCTYPE html>"
             + "<html>"
@@ -40,11 +47,18 @@ public class Tools {
                 + "</ul>"
             + "</header>";
     
+    /**
+     * Footer to include on the web pages
+     * 
+     */
     public static final String footer = 
             "</div>"
             + "</body>"
             + "</html>";
     
+    /**
+     * HTML for the header of the tables (4 items : author, title, date and add a book to purchase
+     */
     public static final String tableHeader = 
                         "<table width='100%'> "
                         + "<thead>"
@@ -56,7 +70,18 @@ public class Tools {
                             + "</tr>"
                         + "</thead>"
                         + "<tbody>";
+    
+    /**
+     * HTML for the footer of the tables
+     */
     public static final String tableFooter = "</tbody>" + "</table>";
+    
+    /**
+     * Returns the list of books the user wants to purchase
+     * @param e (the params of the request)
+     * @param session (the current http session)
+     * @return 
+     */
     public static final List<Books> getCartBooks(Enumeration<String> e, HttpSession session) {
         String tmp = null;
         List<Books> listPurchase = new ArrayList<>();
@@ -69,7 +94,12 @@ public class Tools {
          }
         return listPurchase;
     }
-    
+    /**
+     * Checks the session parameters to see if a user is logged in or not
+     * @param e (the params of the request)
+     * @param session (the current http session)
+     * @return 
+     */
     public static final boolean isLogedIn(Enumeration<String> e, HttpSession session) {
         while(e.hasMoreElements()) {
             String tmp = e.nextElement().toString();

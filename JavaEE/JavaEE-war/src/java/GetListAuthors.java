@@ -20,7 +20,11 @@ import javax.servlet.http.HttpServletResponse;
  * @author rkouere
  */
 public class GetListAuthors extends HttpServlet {
-  
+    /**
+     * Access to the Books db
+     * 
+     * 
+     */
    @EJB
    private BooksFacadeLocalItf bf;
     /**

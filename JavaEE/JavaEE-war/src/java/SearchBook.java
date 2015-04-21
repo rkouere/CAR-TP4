@@ -27,8 +27,7 @@ public class SearchBook extends HttpServlet {
     private List<Books> titles = new ArrayList<>();
     
     private String form = "<form action=\"SearchBook\" method=\"POST\">\n" +
-"            <div>Title :  <br />\n" +
-"                <input required=\"\" type=\"text\" name=\"author\" /></div>\n" +
+"                <div><input required=\"\" type=\"text\" name=\"author\" /></div>\n" +
 
 "            <div><input type=\"submit\" value=\"Submit\" /></div>\n" +
 "        </form>";
@@ -53,9 +52,12 @@ public class SearchBook extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println(Tools.header);
-            out.println("<div>What are you looking for ?</div>");
+            out.println("<h2>Online search by author</h2>");
             out.println(this.form);
+            out.println("<div><br /></div>");
+
             if(this.titles.size() > 0) {
+                out.println("<h3>Results</h3>");
                 out.println(Tools.tableHeader);
                 for(Books title:this.titles) 
                     out.println("<tr><td>" + title.getAuthor()+ "</td><td>" + title.getTitle()+ "</td><td>" + title.getDate()+ "</td></tr>");
@@ -92,7 +94,8 @@ public class SearchBook extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Books> list = bf.findBooksByAuthor(request.getParameter("author"));
+        List<Books> list = bf.findBooksByAuthor(request.getParameter("author")); 
+        System.out.println(request.getParameter("author"));
         for(Books book:list)
             this.titles.add(book);
         

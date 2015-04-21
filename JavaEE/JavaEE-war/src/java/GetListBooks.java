@@ -27,20 +27,46 @@ import javax.servlet.http.HttpSession;
  * @author rkouere
  */
 public class GetListBooks extends HttpServlet { 
+    /**
+     * Access to the Books db
+     * 
+     * 
+     */   
     @EJB
     private BooksFacadeLocalItf bf;
- 
+    /**
+     * Access to the Purchase db
+     * 
+     * 
+     */
     @EJB
     private MakePurchaseLocal pu;
  
     
     private String tmp = null;
-
+    /**
+     * The list of books currently being purchased
+     */
     private List<Books> listPurchase = null;
+    /**
+     * The title of the book to add
+     */
     private String title    =   "";
+    /** 
+     * The name of the author
+     */
     private String author   =   "";
+    /**
+     * The date of publication
+     */
     private String date     =   "";
+    /**
+     * Is the book db initialised ?
+     */
     boolean init            =   false;
+    /**
+     * Is a user logged in ?
+     */
     boolean logedIn         =   false;
     /**
      * Displays the list of books currently in the database and offers the user to add a book
@@ -71,7 +97,7 @@ public class GetListBooks extends HttpServlet {
             out.println("<h1>Liste des titres dans la base</h1>");
 
             out.println(Tools.tableHeader);
-     
+            // we display all the titles
             List<Books> list = bf.findAllTitles();
             for(Books book:list)
                 out.println("<tr><td>" + book.getAuthor()+ "</td><td>" + book.getTitle()+ "</td><td>" + book.getDate()+ "</td>"
@@ -90,36 +116,40 @@ public class GetListBooks extends HttpServlet {
             out.println("<div><a href='SearchBook'>Search a book.</a></div>");
             
  
-            // removes all the books
             
             // on essait de trouver le parametre qui correspond au cart
             //e = session.getAttributeNames();
             listPurchase = Tools.getCartBooks(e, session);
-            if(listPurchase.size() > 0) {
-                out.println("<div><h2>Shopping Cart</h2>");
-                out.println("<div id='purchase'>");
+            if(!this.logedIn)
+                out.println("<div>You have to be logged in to acces this list</div>");
+            // we display all the books the user wants to purchase
+            else {
+                if(listPurchase.size() > 0) {
+                    out.println("<div><h2>Shopping Cart</h2>");
+                    out.println("<div id='purchase'>");
 
-                    out.println("<form action='GetListBooks' method='POST'>"
-                                + "<input type='hidden' name='removeAll' value='remove'/>"
-                                + "<input type='Submit' class ='button tiny' value='Reset' />"
-                            + "</form>");
-                    out.println("<form action='Purchase' method='POST'>"
-                                + "<input type='hidden' name='finalPurchase' value='remove'/>"
-                                + "<input type='Submit' class ='button tiny' value='Purchase' />"
-                            + "</form>");
-                out.println("</div>");
+                        out.println("<form action='GetListBooks' method='POST'>"
+                                    + "<input type='hidden' name='removeAll' value='remove'/>"
+                                    + "<input type='Submit' class ='button tiny' value='Reset' />"
+                                + "</form>");
+                        out.println("<form action='Purchase' method='POST'>"
+                                    + "<input type='hidden' name='finalPurchase' value='remove'/>"
+                                    + "<input type='Submit' class ='button tiny' value='Purchase' />"
+                                + "</form>");
+                    out.println("</div>");
 
-                out.println(Tools.tableHeader);
+                    out.println(Tools.tableHeader);
 
-                for(Books b:listPurchase)
-                    out.println("<tr><td>" + b.getAuthor()+ "</td><td>" + b.getTitle()+ "</td><td>" + b.getDate()+ "</td>"
-                            + "<td><form action='GetListBooks' method='POST'>"
-                                + "<input type='hidden' name='removeFromCart' value='" + b.getTitle() + "'/>"
-                                + "<input type='Submit' value='Remove' />"
-                            + "</form></td>"
-                            + "</tr>");
+                    for(Books b:listPurchase)
+                        out.println("<tr><td>" + b.getAuthor()+ "</td><td>" + b.getTitle()+ "</td><td>" + b.getDate()+ "</td>"
+                                + "<td><form action='GetListBooks' method='POST'>"
+                                    + "<input type='hidden' name='removeFromCart' value='" + b.getTitle() + "'/>"
+                                    + "<input type='Submit' value='Remove' />"
+                                + "</form></td>"
+                                + "</tr>");
 
-                out.println(Tools.tableFooter);
+                    out.println(Tools.tableFooter);
+                }
             }
             
             out.println("</div>");
@@ -143,7 +173,11 @@ public class GetListBooks extends HttpServlet {
     }
 
     /**
-     * Add a title to the database and then re-display the list of titles
+     * Post method manager. Can do any of the followings
+     * - add a book
+     * - remove all the books from the cart
+     * - remove one item from the cart
+     * - add an item to the cart
      *
      * @param request servlet request
      * @param response servlet response

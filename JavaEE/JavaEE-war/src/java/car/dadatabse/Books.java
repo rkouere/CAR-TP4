@@ -18,7 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table; 
 
 /**
- * The entity representing the books table
+ * The java representation of the Books table
  * Also has named queries to get the list of author present in the database as well as the list of titles
  * @author echallier
  */

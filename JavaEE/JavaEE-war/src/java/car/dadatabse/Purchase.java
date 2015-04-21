@@ -15,7 +15,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
- *
+ * The java representation of the Purchase table
  * @author rkouere
  */
 @Entity
@@ -28,10 +28,15 @@ public class Purchase implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Collection<Books> shoping;
-
+    /**
+     * Constructor
+     */
     public Purchase() {
     }
-
+    /**
+     * Sets the shopping list
+     * @param shoping A collection
+     */
     public void setShoping(Collection<Books> shoping) {
         this.shoping = shoping;
     }
@@ -39,11 +44,17 @@ public class Purchase implements Serializable {
     
     
     
-    
+    /**
+     * 
+     * @return The transaction's ID 
+     */
     public Long getId() {
         return id;
     }
-
+    /**
+     * Sets the transaction's id
+     * @param id 
+     */
     public void setId(Long id) {
         this.id = id;
     }
