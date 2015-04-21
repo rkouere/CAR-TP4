@@ -22,7 +22,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class BooksFacadeLocal implements BooksFacadeLocalItf {
-    // Add business logic below. (Right-click in editor and choose
+    // Add business logic below. (Right-clickn editor and choose
     // "Insert Code > Add Business Method")
     
     @PersistenceContext

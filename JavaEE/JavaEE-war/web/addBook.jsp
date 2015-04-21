@@ -32,6 +32,7 @@
             <div>Author :  <br />
                 <input required="" type="text" name="author"/></div>
             <div>Date :  <br /><input required="" type="date" name="date"/></div>
+            <input type="hidden" name="addBook" value="add"/>
             <div><input type="submit" value="Submit" /></div>
         </form>
 

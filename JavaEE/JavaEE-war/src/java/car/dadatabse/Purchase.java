@@ -6,37 +6,38 @@
 package car.dadatabse;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
- * Was supposed to be used to store the clients
+ *
  * @author rkouere
  */
 @Entity
-public class Client implements Serializable {
+@NamedQueries(value= {
+    @NamedQuery(name="getAllOrders", query="SELECT DISTINCT p.id FROM Purchase p"),
+})
+public class Purchase implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String pseudo;
+    private Collection<Books> shoping;
 
-    public String getPseudo() {
-        return pseudo;
+    public Purchase() {
     }
 
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
+    public void setShoping(Collection<Books> shoping) {
+        this.shoping = shoping;
     }
-
-    public Client(String pseudo) {
-        this.pseudo = pseudo;
-    }
-
-    public Client() {
-    }
+    
+    
+    
     
     
     public Long getId() {
@@ -57,10 +58,10 @@ public class Client implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Client)) {
+        if (!(object instanceof Purchase)) {
             return false;
         }
-        Client other = (Client) object;
+        Purchase other = (Purchase) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -69,7 +70,7 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return "car.dadatabse.Users[ id=" + id + " ]";
+        return "car.dadatabse.Purchase[ id=" + id + " ]";
     }
     
 }

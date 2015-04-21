@@ -6,6 +6,7 @@
 package car.ejb;
 
 import car.dadatabse.Client;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -56,9 +57,23 @@ public class UserFacade implements UserFacadeLocalItf {
     }
 
     @Override
-    public List<Client> checkUserExists(String name) {
+    public boolean checkUserExists(String name) {
+        List<Client> listTmp = checkUser(name);
+ 
+        for(Client c:listTmp)
+            if(c.getPseudo().equals(name))
+                return true;
+        return false;
+    }
+    
+    private List<Client> checkUser(String name) {
         Query q = em.createQuery("SELECT OBJECT(u) FROM Client u WHERE u.pseudo = :au");
-        q.setParameter("au", name);
+        return q.setParameter("au", name).getResultList();
+    }
+
+    @Override
+    public List<Client> getAllUsers() {
+        Query q = em.createQuery("SELECT *  FROM Client c");
         return q.getResultList();
     }
     

@@ -64,3 +64,8 @@ tbody tr:hover {
     display: inline-block;
     width: 45%;
 }
+
+/* purchase */
+#purchase form {
+    display: inline-block;
+}

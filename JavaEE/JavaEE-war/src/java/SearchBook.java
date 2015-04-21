@@ -48,10 +48,7 @@ public class SearchBook extends HttpServlet {
        
         ServletContext ctx = getServletContext();
         
-        if(ctx.getAttribute("init") != "true") {
-            bf.init();
-            ctx.setAttribute("init", "true");
-        }
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */

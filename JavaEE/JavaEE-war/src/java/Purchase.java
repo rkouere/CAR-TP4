@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-import car.dadatabse.Client;
+import car.dadatabse.Books;
 import car.ejb.BooksFacadeLocalItf;
-import car.ejb.UserFacadeLocalItf;
+import car.ejb.MakePurchaseLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -14,21 +14,21 @@ import java.util.Enumeration;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Was supposed to let a user login or crate a new user
+ * Servlet
  * @author rkouere
  */
-public class Login extends HttpServlet {
-   @EJB
-   private UserFacadeLocalItf user;
-   private boolean logedIn = false;
-   
+public class Purchase extends HttpServlet {
+    private String tmp = null;
+    private List<Books> listPurchase = null;
+    @EJB
+    private MakePurchaseLocal pu;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,42 +40,45 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(true);
+        final HttpSession session = request.getSession();
         Enumeration<String> e = session.getAttributeNames();
-
-        user.init();
-        
-        this.logedIn = Tools.isLogedIn(e, session);
         
         try (PrintWriter out = response.getWriter()) {
+//            finalPurchase
             /* TODO output your page here. You may use following sample code. */
             out.println(Tools.header);
-            if(this.logedIn)
-                out.println(Tools.logout);
-
             
-            out.println(
-                    "<div id='login'>"
-                            + "<h1>Login</h1>"
-                            + "<div id='newLogin'>"
-                                + "<h2>New user</h2>"
-                                + "<form action='Login' method='POST'>" +
-                                        "<div><input required='' type='text' name='pseudoNew' /></div>" +
-                                        "<div><input type='submit' value='Submit'  class='button tiny'/></div>" +
-                                    "</form>"
-                            + "</div>"
-                        + "<div id='checkLogin'>"
-                                + "<h2>Returning user</h2>"
-                                + "<form action='Login' method='POST'>" +
-                                        "<div><input required='' type='text' name='pseudoCheck' /></div>" +
-                                        "<div><input type='submit' value='Submit' class='button tiny' /></div>" +
-                                    "</form>"
-                        + "</div>"
-                    + "</div>");
-            
+            out.println("<h1>Summary of you basket</h1>");
 
+            listPurchase = Tools.getCartBooks(e, session);
+            
+            if(this.listPurchase.size() == 0)
+                out.println("<h1>Votre panier est vide</h1>");
+            else {
+                out.println(Tools.tableHeader);
+
+                for(Books b:listPurchase)
+                    out.println("<tr><td>" + b.getAuthor()+ "</td><td>" + b.getTitle()+ "</td><td>" + b.getDate()+ "</td>"
+                            + "<td><form action='GetListBooks' method='POST'>"
+                                + "<input type='hidden' name='removeFromCart' value='" + b.getTitle() + "'/>"
+                                + "<input type='Submit' value='Remove' />"
+                            + "</form></td>"
+                            + "</tr>");
+
+                out.println(Tools.tableFooter);
+                out.println("<div id='purchase'>");
+                    out.println("<form action='GetListBooks' method='POST'>"
+                        + "<input type='hidden' name='removeAll' value='remove'/>"
+                        + "<input type='Submit' class ='button tiny' value='Reset' />"
+                    + "</form>");
+                    out.println("<form action='Purchase' method='POST'>"
+                        + "<input type='hidden' name='bringInTheMoney' value='add'/>"
+                        + "<input type='Submit' class ='button tiny' value='Purchase' />"
+                    + "</form>");
+                out.println("</div>");
+
+            }
             out.println(Tools.footer);
 
         }
@@ -97,9 +100,7 @@ public class Login extends HttpServlet {
     }
 
     /**
-     * Checks whether a user is trying toi login or is trying to be a new user.
-     * If the user exists, we set a session 
-     * If the user wants to be a new customer, we add him in the database and we create a session
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -109,34 +110,28 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // if the user is already registered
+        
         final HttpSession session = request.getSession();
+        Enumeration<String> e = session.getAttributeNames();
         // we manage the different request
         Enumeration<String> params = request.getParameterNames();
         String element = null;
         while(params.hasMoreElements()) {
             element = params.nextElement();
             switch(element){
-                case "pseudoCheck":
-                    if(user.checkUserExists(request.getParameter("pseudoCheck")))
-                        session.setAttribute("login", "true");
-                        response.sendRedirect(response.encodeRedirectURL("GetListBooks"));
-                    break;
-                case "pseudoNew":
-                    if(!user.checkUserExists(request.getParameter("pseudoNew")))
-                        user.addUser(request.getParameter("pseudoNew"));
-                        session.setAttribute("login", "true");
-                        response.sendRedirect(response.encodeRedirectURL("GetListBooks"));
-                    break;
-                case "logout":
-                    session.setAttribute("login", "false");
-                    response.sendRedirect(response.encodeRedirectURL("Login"));
+                case "bringInTheMoney":
+                    listPurchase = Tools.getCartBooks(e, session);
+                    pu.makePurchase(listPurchase);
+                    listPurchase = new ArrayList<>();
+                    session.setAttribute("cart", listPurchase);
+                    response.sendRedirect(response.encodeRedirectURL("GetListBooks"));
                     break;
                 default:
                     break;
                     
             }
         }
+        
         processRequest(request, response);
     }
 

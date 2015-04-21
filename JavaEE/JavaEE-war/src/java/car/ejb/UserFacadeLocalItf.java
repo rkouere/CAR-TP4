@@ -37,6 +37,12 @@ public interface UserFacadeLocalItf {
      * @param The username
      * @return true if the user exists
      */
-    public List<Client> checkUserExists(String name);
+    public boolean checkUserExists(String name);
+    
+    /**
+     * Get all the users in the db
+     * @return All the users present in the database
+     */
+    public List<Client> getAllUsers();
     
 }
