@@ -96,7 +96,7 @@ public class GetListBooks extends HttpServlet {
             
             out.println("<form action='GetListBooks' method='POST'>"
                             + "<input type='hidden' name='addDummyBooks' value='add'/>"
-                            + "<input type='Submit' value='Add books' />"
+                            + "<input type='Submit' value='Add books' class='button tiny' />"
                         + "</form>");
             
             out.println("<h1>Liste des titres dans la base</h1>");
