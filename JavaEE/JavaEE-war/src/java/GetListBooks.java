@@ -94,6 +94,11 @@ public class GetListBooks extends HttpServlet {
             if(this.logedIn)
                 out.println(Tools.logout);
             
+            out.println("<form action='GetListBooks' method='POST'>"
+                            + "<input type='hidden' name='addDummyBooks' value='add'/>"
+                            + "<input type='Submit' value='Add books' />"
+                        + "</form>");
+            
             out.println("<h1>Liste des titres dans la base</h1>");
 
             out.println(Tools.tableHeader);
@@ -237,6 +242,10 @@ public class GetListBooks extends HttpServlet {
                     session.setAttribute("cart", listPurchase);                
                     response.sendRedirect(response.encodeRedirectURL("GetListBooks"));
                     break;
+                    case "addDummyBooks":
+                        bf.init();
+                        response.sendRedirect(response.encodeRedirectURL("GetListBooks"));
+                        break;
                 default: 
                      break;
             

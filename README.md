@@ -1,7 +1,7 @@
 
 Creation d'une application en utilisant jEE
 Congcong Xu - Nicolas Echallier
-04/04/14
+21/04/14
 
 ====================================================
 Introduction :
